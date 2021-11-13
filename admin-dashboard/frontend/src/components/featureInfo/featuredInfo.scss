@@ -1,0 +1,56 @@
+@import "../../assets/css/colors";
+
+.featured {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .featuredItem {
+    margin: 10px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px -10px rgba($black, $alpha: 075);
+    cursor: pointer;
+
+    .featuredTitle {
+      font-size: 20px;
+    }
+
+    .featuredMoneyContainer {
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      .featuredMoney {
+        font-size: 30px;
+        font-weight: bold;
+      }
+
+      .featuredRate {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .featuredSub {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: $gray;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .featured .featuredItem {
+    margin: 0;
+    .featuredMoneyContainer {
+      flex-direction: row;
+      align-items: center;
+      .featuredRate {
+        margin-left: 10px;
+      }
+    }
+  }
+}

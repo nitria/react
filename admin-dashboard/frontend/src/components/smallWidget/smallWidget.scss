@@ -1,0 +1,91 @@
+@import "../../assets/css/colors";
+@import "../../assets/css/main.scss";
+
+.widgetSmall {
+  padding: 20px;
+  box-shadow: 0px 0px 15px -10px rgba($black, $alpha: 0.75);
+
+  .widgetSmallTitle {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .widgetSmallList {
+    margin: 0;
+    padding: 0;
+    .widgetSmallListItem {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin: 20px 0;
+      .widgetSmallImg {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        -o-object-fit: cover;
+        object-fit: cover;
+      }
+
+      .widgetSmallUser {
+        display: flex;
+        flex-direction: column;
+        margin: 0.5rem 0;
+
+        .widgetSmallUsername {
+          font-size: 1rem;
+          font-weight: 600;
+        }
+
+        .widgetSmallJob {
+          font-size: 1rem;
+          font-weight: 300;
+        }
+      }
+      .widgetSmallBtn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 10px;
+        padding: 5px 10px;
+        background: $darkWhite;
+        font-size: 1rem;
+        &:hover {
+          transition: 0.3s ease;
+          background: $lightGray;
+        }
+
+        .widgetSmallBtnIcon {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .widgetSmall .widgetSmallList .widgetSmallListItem {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .widgetSmall {
+    flex: 1;
+    .widgetSmallList .widgetSmallListItem {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .widgetSmall {
+    .widgetSmallList .widgetSmallListItem {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}

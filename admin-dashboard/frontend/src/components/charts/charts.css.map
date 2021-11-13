@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,MAAM,CAAC;EACL,QAAQ,EAAE,MAAM;EAChB,MAAM,EAAE,IAAI;EACZ,OAAO,EAAE,IAAI;EACb,UAAU,EAAE,GAAG,CAAC,GAAG,CAAC,IAAI,CAAE,KAAI,CCJxB,mBAAO;CDUd;;AAVD,AAME,MANI,CAMJ,WAAW,CAAC;EACV,SAAS,EAAE,MAAM;EACjB,aAAa,EAAE,IAAI;CACpB",
+    "sources": [
+        "charts.scss",
+        "../../assets/css/colors.scss"
+    ],
+    "names": [],
+    "file": "charts.css"
+}

@@ -1,0 +1,12 @@
+@import "../colors";
+
+.sideBar {
+  .sidebar-list {
+    .sidebar-list-item {
+      &:hover {
+        transition: all 0.3s ease;
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+}

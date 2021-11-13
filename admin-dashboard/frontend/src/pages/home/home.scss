@@ -1,0 +1,10 @@
+@import "../../assets/css/colors";
+@import "../../assets/css/main.scss";
+
+.home {
+  width: 100%;
+  margin-top: 1rem;
+  .homeWidgets {
+    display: flex;
+  }
+}
