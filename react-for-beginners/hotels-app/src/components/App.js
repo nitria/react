@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Lightbox from "./Lightbox";
+import { FaStar } from "react-icons/fa";
+// import Lightbox from "./Lightbox";
 
 const url = "https://nitria-hotels-api.herokuapp.com/hotels";
 
@@ -7,8 +8,8 @@ function App() {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(0);
-  const [showHideLightbox, setShowHideLightbox] = useState(false);
   const [showImage, setShowImage] = useState(null);
+  // const [showHideLightbox, setShowHideLightbox] = useState(false);
 
   const fetchHotels = async () => {
     const response = await fetch(url);
@@ -20,7 +21,6 @@ function App() {
   useEffect(() => {
     fetchHotels();
   }, []);
-
   if (loading) {
     return (
       <section className="section loading">
@@ -36,19 +36,27 @@ function App() {
     );
   }
 
-  const { name, location, img, id, desc, thumbnails } = hotels[value];
+  const { name, location, img, id, desc, thumbnails, stars } = hotels[value];
 
-  const closeLightbox = () => {
-    setShowHideLightbox(false);
+  // const closeLightbox = () => {
+  //   setShowHideLightbox(false);
+  // };
+  const displayName = (index, img) => {
+    setValue(index);
+    setShowImage(img);
   };
-
   const showimage = (image) => {
     setShowImage(image);
-    setShowHideLightbox(true);
+    // setShowHideLightbox(true);
   };
 
   return (
-    <HotelsContext.Provider value={{ closeLightbox, showImage }}>
+    <HotelsContext.Provider
+      value={{
+        //closeLightbox//,
+        showImage,
+      }}
+    >
       <section className="section">
         <div className="title">
           <h2>hotels</h2>
@@ -59,7 +67,9 @@ function App() {
               return (
                 <button
                   key={hotel.id}
-                  onClick={() => setValue(index)}
+                  onClick={() => {
+                    displayName(index, hotel.img);
+                  }}
                   className={`hotel-btn ${index === value && "active-btn"}`}
                 >
                   {hotel.name}
@@ -68,8 +78,7 @@ function App() {
             })}
           </div>
           <article className="hotel" key={id}>
-            <img src={img} alt={name} className="img" />
-
+            <img src={showImage || img} alt={name} className="img" />
             <div className="thumbnails">
               <img
                 src={thumbnails[0].thumb1}
@@ -90,12 +99,17 @@ function App() {
 
             <h3>{name}</h3>
             <h4>{location}</h4>
+            <span>
+              {[...Array(stars)].map((star, index) => (
+                <FaStar id={star} key={index} color="#ffcc00" />
+              ))}
+            </span>
             <p>{desc}</p>
           </article>
         </div>
-        {showHideLightbox && (
+        {/* {showHideLightbox && (
           <Lightbox showImage={showImage} setShowImage={setShowImage} />
-        )}
+        )} */}
       </section>
     </HotelsContext.Provider>
   );
