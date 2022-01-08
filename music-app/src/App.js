@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from "styled-components";
+import "./assets/styles/app.css";
+import User from "./components/user/User";
+import SearchBar from "./components/SearchBar";
+import SongDetails from "./components/SongDetails";
+import Library from "./components/Library";
+import ControlButtons from "./components/ControlButtons";
+
+const StyledContainer = styled.div`
+  background-color: var(--bgColor);
+  color: white;
+  padding: 1rem;
+  height: 100vh;
+`;
+const StyledHeader = styled.header`
+  display: flex;
+  width: 100%;
+`;
+const StyledMain = styled.main`
+  display: flex;
+  width: 100%;
+  height: 90%;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledContainer className="App">
+      <StyledHeader>
+        <SearchBar />
+        <User />
+      </StyledHeader>
+      <StyledMain>
+        <SongDetails />
+        <Library />
+      </StyledMain>
+      <footer>
+        <ControlButtons />
+      </footer>
+    </StyledContainer>
   );
 }
 
