@@ -9,18 +9,22 @@ import ControlButtons from "./components/ControlButtons";
 const StyledContainer = styled.div`
   background-color: var(--bgColor);
   color: white;
-  padding: 1rem;
   height: 100vh;
+  font-family: arial, helvetica, sans-serif;
 `;
 const StyledHeader = styled.header`
   display: flex;
   width: 100%;
+  background-color: var(--lightprimaryColor);
+  padding: 1rem;
 `;
 const StyledMain = styled.main`
   display: flex;
   width: 100%;
   height: 90%;
 `;
+
+const StyledFooter = styled(StyledHeader)``;
 
 function App() {
   return (
@@ -33,9 +37,9 @@ function App() {
         <SongDetails />
         <Library />
       </StyledMain>
-      <footer>
+      <StyledFooter>
         <ControlButtons />
-      </footer>
+      </StyledFooter>
     </StyledContainer>
   );
 }
