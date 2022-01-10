@@ -1,10 +1,16 @@
 import React from "react";
+import styled, { css } from "styled-components";
+import "../assets/styles/app.css";
+import UploadMusic from "./UploadMusic";
+const StyledLibraryDiv = styled.div`
+  flex-grow: 1;
+`;
 
 function Library() {
   return (
-    <div>
-      <h1>library</h1>
-    </div>
+    <StyledLibraryDiv>
+      <UploadMusic />
+    </StyledLibraryDiv>
   );
 }
 
