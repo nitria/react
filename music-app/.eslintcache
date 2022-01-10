@@ -1,1 +1,223 @@
-[{"D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\index.js":"1","D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\App.js":"2","D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\ControlButtons.js":"3","D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\Library.js":"4","D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\SearchBar.js":"5","D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\SongDetails.js":"6","D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\user\\User.js":"7","D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\UploadMusic.js":"8","D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\firebase.js":"9"},{"size":410,"mtime":1641802772000,"results":"10","hashOfConfig":"11"},{"size":1088,"mtime":1641802772000,"results":"12","hashOfConfig":"11"},{"size":1243,"mtime":1641802772000,"results":"13","hashOfConfig":"11"},{"size":342,"mtime":1641812986000,"results":"14","hashOfConfig":"11"},{"size":1006,"mtime":1641802772000,"results":"15","hashOfConfig":"11"},{"size":294,"mtime":1641802772000,"results":"16","hashOfConfig":"11"},{"size":423,"mtime":1641802772000,"results":"17","hashOfConfig":"11"},{"size":1304,"mtime":1641815014000,"results":"18","hashOfConfig":"11"},{"size":1047,"mtime":1641815032000,"results":"19","hashOfConfig":"11"},{"filePath":"20","messages":"21","errorCount":0,"fatalErrorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},"zu8yye",{"filePath":"22","messages":"23","errorCount":0,"fatalErrorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"24","messages":"25","errorCount":0,"fatalErrorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"26","messages":"27","errorCount":0,"fatalErrorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"28","messages":"29","errorCount":0,"fatalErrorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"30","messages":"31","errorCount":0,"fatalErrorCount":0,"warningCount":1,"fixableErrorCount":0,"fixableWarningCount":0,"source":null},{"filePath":"32","messages":"33","errorCount":0,"fatalErrorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0},{"filePath":"34","messages":"35","errorCount":0,"fatalErrorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"36"},{"filePath":"37","messages":"38","errorCount":0,"fatalErrorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":"36"},"D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\index.js",[],"D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\App.js",[],"D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\ControlButtons.js",[],"D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\Library.js",["39"],"D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\SearchBar.js",[],"D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\SongDetails.js",["40"],"D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\user\\User.js",[],"D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\UploadMusic.js",[],["41","42"],"D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\firebase.js",[],{"ruleId":"43","severity":1,"message":"44","line":2,"column":18,"nodeType":"45","messageId":"46","endLine":2,"endColumn":21},{"ruleId":"43","severity":1,"message":"44","line":2,"column":18,"nodeType":"45","messageId":"46","endLine":2,"endColumn":21},{"ruleId":"47","replacedBy":"48"},{"ruleId":"49","replacedBy":"50"},"no-unused-vars","'css' is defined but never used.","Identifier","unusedVar","no-native-reassign",["51"],"no-negated-in-lhs",["52"],"no-global-assign","no-unsafe-negation"]
+[
+  {
+    "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\index.js": "1",
+    "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\App.js": "2",
+    "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\ControlButtons.js": "3",
+    "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\Library.js": "4",
+    "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\SearchBar.js": "5",
+    "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\SongDetails.js": "6",
+    "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\user\\User.js": "7",
+    "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\UploadMusic.js": "8",
+    "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\firebase.js": "9"
+  },
+  {
+    "size": 410,
+    "mtime": 1641802772000,
+    "results": "10",
+    "hashOfConfig": "11"
+  },
+  {
+    "size": 1088,
+    "mtime": 1641802772000,
+    "results": "12",
+    "hashOfConfig": "11"
+  },
+  {
+    "size": 1243,
+    "mtime": 1641802772000,
+    "results": "13",
+    "hashOfConfig": "11"
+  },
+  {
+    "size": 342,
+    "mtime": 1641812986000,
+    "results": "14",
+    "hashOfConfig": "11"
+  },
+  {
+    "size": 1006,
+    "mtime": 1641802772000,
+    "results": "15",
+    "hashOfConfig": "11"
+  },
+  {
+    "size": 294,
+    "mtime": 1641802772000,
+    "results": "16",
+    "hashOfConfig": "11"
+  },
+  {
+    "size": 423,
+    "mtime": 1641802772000,
+    "results": "17",
+    "hashOfConfig": "11"
+  },
+  {
+    "size": 1304,
+    "mtime": 1641815014000,
+    "results": "18",
+    "hashOfConfig": "11"
+  },
+  {
+    "size": 1047,
+    "mtime": 1641815032000,
+    "results": "19",
+    "hashOfConfig": "11"
+  },
+  {
+    "filePath": "20",
+    "messages": "21",
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0
+  },
+  "zu8yye",
+  {
+    "filePath": "22",
+    "messages": "23",
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0
+  },
+  {
+    "filePath": "24",
+    "messages": "25",
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0
+  },
+  {
+    "filePath": "26",
+    "messages": "27",
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": null
+  },
+  {
+    "filePath": "28",
+    "messages": "29",
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0
+  },
+  {
+    "filePath": "30",
+    "messages": "31",
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": null
+  },
+  {
+    "filePath": "32",
+    "messages": "33",
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0
+  },
+  {
+    "filePath": "34",
+    "messages": "35",
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": "36"
+  },
+  {
+    "filePath": "37",
+    "messages": "38",
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": "36"
+  },
+  "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\index.js",
+  [],
+  "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\App.js",
+  [],
+  "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\ControlButtons.js",
+  [],
+  "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\Library.js",
+  [
+    "39"
+  ],
+  "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\SearchBar.js",
+  [],
+  "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\SongDetails.js",
+  [
+    "40"
+  ],
+  "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\user\\User.js",
+  [],
+  "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\components\\UploadMusic.js",
+  [],
+  [
+    "41",
+    "42"
+  ],
+  "D:\\Files are hidden by Trojan\\myprojects\\javascript\\react\\music-app\\src\\firebase.js",
+  [],
+  {
+    "ruleId": "43",
+    "severity": 1,
+    "message": "44",
+    "line": 2,
+    "column": 18,
+    "nodeType": "45",
+    "messageId": "46",
+    "endLine": 2,
+    "endColumn": 21
+  },
+  {
+    "ruleId": "43",
+    "severity": 1,
+    "message": "44",
+    "line": 2,
+    "column": 18,
+    "nodeType": "45",
+    "messageId": "46",
+    "endLine": 2,
+    "endColumn": 21
+  },
+  {
+    "ruleId": "47",
+    "replacedBy": "48"
+  },
+  {
+    "ruleId": "49",
+    "replacedBy": "50"
+  },
+  "no-unused-vars",
+  "'css' is defined but never used.",
+  "Identifier",
+  "unusedVar",
+  "no-native-reassign",
+  [
+    "51"
+  ],
+  "no-negated-in-lhs",
+  [
+    "52"
+  ],
+  "no-global-assign",
+  "no-unsafe-negation"
+]
