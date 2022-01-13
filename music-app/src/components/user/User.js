@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "../../assets/styles/app.css";
@@ -37,9 +37,9 @@ function User({
   email,
   dropdown,
   setDropdown,
+  hasToken,
+  setHasToken,
 }) {
-  const [login, setLogin] = useState("");
-
   const expandDropdown = () => {
     setDropdown(!dropdown);
   };
@@ -48,7 +48,7 @@ function User({
     sessionStorage.removeItem("Auth Token");
     navigate("/login");
     setDropdown(!dropdown);
-    setLogin("Login");
+    setHasToken(false);
   };
 
   useEffect(() => {
@@ -56,23 +56,14 @@ function User({
       const data = await getDocs(userInfo);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))[0]);
     };
+
     getUsers();
-    let authToken = sessionStorage.getItem("Auth Token");
-    if (authToken) {
-      navigate("/main");
-      setLogin("logout");
-    }
-
-    if (!authToken) {
-      navigate("/register");
-    }
   }, []);
-
   return (
     <StyledUser>
       <div>
         <StyledAvatar onClick={() => expandDropdown()}>
-          {users && users.image ? (
+          {hasToken && users && users.image ? (
             <img
               src={users.image}
               alt={users.name}
@@ -82,11 +73,15 @@ function User({
             <UserIcon />
           )}
         </StyledAvatar>
-        <StyledUserName>{(users && users.name) || email}</StyledUserName>
+        <StyledUserName>
+          {(hasToken && users && users.name) || (hasToken && email) || null}
+        </StyledUserName>
         <div className={`dropdown ${dropdown ? "active" : ""}`}>
           <Link to="profile">Profile</Link>
-          <Link to="/settings">Settings</Link>
-          <button onClick={handleLogout}>{login}</button>
+          <Link to="settings">Settings</Link>
+          <button onClick={handleLogout}>
+            {hasToken ? "logout" : "login"}
+          </button>
         </div>
       </div>
     </StyledUser>

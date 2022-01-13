@@ -38,16 +38,23 @@ function App() {
   const [userAvatar, setUserAvatar] = useState(null);
   const [userName, setUserName] = useState(null);
   const [dropdown, setDropdown] = useState(false);
+  const [hasToken, setHasToken] = useState();
   const userInfo = collection(db, "users");
   let navigate = useNavigate();
 
+  let authToken = sessionStorage.getItem("Auth Token");
   useEffect(() => {
-    let authToken = sessionStorage.getItem("Auth Token");
-
+    console.log(authToken);
     if (authToken) {
       navigate("/main");
+      setHasToken(true);
+      console.log(userInfo);
     }
-  }, []);
+    if (!authToken) {
+      navigate("/register");
+      setHasToken(false);
+    }
+  }, [authToken]);
   return (
     <StyledContainer className="App">
       <StyledHeader>
@@ -60,7 +67,8 @@ function App() {
           email={email}
           dropdown={dropdown}
           setDropdown={setDropdown}
-          title="Logout"
+          hasToken={hasToken}
+          setHasToken={setHasToken}
         />
       </StyledHeader>
       <StyledMainContainer>
@@ -75,6 +83,9 @@ function App() {
                 setPassword={setPassword}
                 email={email}
                 password={password}
+                dropdown={dropdown}
+                setDropdown={setDropdown}
+                users={users}
               />
             }
           />
@@ -87,6 +98,10 @@ function App() {
                 setPassword={setPassword}
                 email={email}
                 password={password}
+                userInfo={userInfo}
+                dropdown={dropdown}
+                setDropdown={setDropdown}
+                users={users}
               />
             }
           />
@@ -101,6 +116,7 @@ function App() {
                 setUserName={setUserName}
                 userAvatar={userAvatar}
                 setUserAvatar={setUserAvatar}
+                db={db}
               />
             }
           />

@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { addDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
 const StyledFormContainer = styled.div`
@@ -61,15 +62,17 @@ function Form({
   setPassword,
   dropdown,
   setDropdown,
+  userInfo,
 }) {
   let navigate = useNavigate();
   const handleAction = (e) => {
     e.preventDefault();
-    setDropdown(!dropdown);
+    setDropdown(false);
     const authentication = getAuth();
     if (title === "Register") {
       createUserWithEmailAndPassword(authentication, email, password)
         .then((response) => {
+          addDoc(userInfo, { name: "", image: "" });
           navigate("/main");
           sessionStorage.setItem(
             "Auth Token",
