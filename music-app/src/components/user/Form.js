@@ -8,51 +8,9 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { addDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
-
-const StyledFormContainer = styled.div`
-  height: 100%;
-`;
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  max-width: 250px;
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-`;
-
-const StyledTitle = styled.h1`
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-`;
-
-const StyledInputs = styled.input`
-  margin-bottom: 1rem;
-  padding: 0.3rem 0.5rem;
-  width: 100%;
-`;
-
-const StyledButton = styled.button`
-  background-color: var(--lightprimaryColor);
-  color: var(--white);
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  cursor: pointer;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: underline;
-  color: var(--white);
-  cursor: pointer;
-`;
+import { db } from "../../firebase";
 
 function Form({
   title,
@@ -65,6 +23,8 @@ function Form({
   userInfo,
 }) {
   let navigate = useNavigate();
+
+  //Function to Register/Login //
   const handleAction = (e) => {
     e.preventDefault();
     setDropdown(false);
@@ -72,7 +32,10 @@ function Form({
     if (title === "Register") {
       createUserWithEmailAndPassword(authentication, email, password)
         .then((response) => {
-          addDoc(userInfo, { name: "", image: "" });
+          setDoc(doc(db, "users", "user"), {
+            name: "",
+            image: "",
+          });
           navigate("/main");
           sessionStorage.setItem(
             "Auth Token",
@@ -133,3 +96,46 @@ function Form({
 }
 
 export default Form;
+
+const StyledFormContainer = styled.div`
+  height: 100%;
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 250px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+`;
+
+const StyledTitle = styled.h1`
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+`;
+
+const StyledInputs = styled.input`
+  margin-bottom: 1rem;
+  padding: 0.3rem 0.5rem;
+  width: 100%;
+`;
+
+const StyledButton = styled.button`
+  background-color: var(--lightprimaryColor);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: underline;
+  color: var(--white);
+  cursor: pointer;
+`;
