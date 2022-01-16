@@ -1,6 +1,10 @@
 @import "variables.css";
 @import "reset.css";
 
+p {
+  margin: 0.5rem 0;
+  font-size: 0.7rem;
+}
 .dropdown {
   display: none;
 }

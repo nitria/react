@@ -20,8 +20,9 @@ function App() {
   const [userName, setUserName] = useState("");
   const [dropdown, setDropdown] = useState(false);
   const [hasToken, setHasToken] = useState();
+
   let navigate = useNavigate();
-  let authToken = sessionStorage.getItem("Auth Token");
+  let authId = sessionStorage.getItem("Auth ID");
   const userInfo = collection(db, "users");
   const dropdownRef = useRef();
 
@@ -38,32 +39,31 @@ function App() {
     };
   });
   useEffect(() => {
-    if (authToken) {
+    if (authId) {
       navigate("/main");
       setHasToken(true);
     }
-    if (!authToken) {
+    if (!authId) {
       navigate("/register");
       setHasToken(false);
     }
     return () => {
-      if (authToken) {
+      if (authId) {
         navigate("/main");
         setHasToken(true);
       }
-      if (!authToken) {
+      if (!authId) {
         navigate("/register");
         setHasToken(false);
       }
     };
-  }, [authToken]);
+  }, [authId]);
 
   return (
     <StyledContainer className="App">
       <StyledHeader>
         <SearchBar />
         <User
-          userInfo={userInfo}
           users={users}
           setUsers={setUsers}
           navigate={navigate}
@@ -71,11 +71,6 @@ function App() {
           dropdown={dropdown}
           setDropdown={setDropdown}
           hasToken={hasToken}
-          setHasToken={setHasToken}
-          userName={userName}
-          setUserName={setUserName}
-          userAvatar={userAvatar}
-          setUserAvatar={setUserAvatar}
           dropdownRef={dropdownRef}
         />
       </StyledHeader>
@@ -83,35 +78,10 @@ function App() {
         <Routes>
           <Route
             path="/profile"
-            element={
-              <UserProfile
-                userInfo={userInfo}
-                users={users}
-                setUsers={setUsers}
-                userName={userName}
-                setUserName={setUserName}
-                userAvatar={userAvatar}
-                setUserAvatar={setUserAvatar}
-                db={db}
-              />
-            }
+            element={<UserProfile navigate={navigate} />}
           />
           <Route path="/settings" element={<UserSettings />} />
-          <Route
-            path="/main"
-            element={
-              <Main
-                navigate={navigate}
-                userInfo={userInfo}
-                users={users}
-                setUsers={setUsers}
-                userName={userName}
-                setUserName={setUserName}
-                userAvatar={userAvatar}
-                setUserAvatar={setUserAvatar}
-              />
-            }
-          />
+          <Route path="/main" element={<Main navigate={navigate} />} />
           <Route
             path="/login"
             element={
@@ -121,9 +91,6 @@ function App() {
                 setPassword={setPassword}
                 email={email}
                 password={password}
-                dropdown={dropdown}
-                setDropdown={setDropdown}
-                users={users}
               />
             }
           />
@@ -136,10 +103,6 @@ function App() {
                 setPassword={setPassword}
                 email={email}
                 password={password}
-                userInfo={userInfo}
-                dropdown={dropdown}
-                setDropdown={setDropdown}
-                users={users}
               />
             }
           />

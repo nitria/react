@@ -10,11 +10,11 @@ const StyledMain = styled.div`
 `;
 function Main({ navigate }) {
   useEffect(() => {
-    let authToken = sessionStorage.getItem("Auth Token");
-    if (authToken) {
+    let authId = sessionStorage.getItem("Auth ID");
+    if (authId) {
       navigate("/main");
     }
-    if (!authToken) {
+    if (!authId) {
       navigate("/login");
     }
   }, []);

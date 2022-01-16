@@ -12,35 +12,23 @@ import { doc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 
-function Form({
-  title,
-  email,
-  setEmail,
-  password,
-  setPassword,
-  dropdown,
-  setDropdown,
-  userInfo,
-}) {
+function Form({ title, email, setEmail, password, setPassword }) {
   let navigate = useNavigate();
 
   //Function to Register/Login //
   const handleAction = (e) => {
     e.preventDefault();
-    setDropdown(false);
     const authentication = getAuth();
     if (title === "Register") {
       createUserWithEmailAndPassword(authentication, email, password)
         .then((response) => {
+          const user = response.user;
           setDoc(doc(db, "users", "user"), {
-            name: "",
-            image: "",
+            displayName: "",
+            photoURL: "",
           });
           navigate("/main");
-          sessionStorage.setItem(
-            "Auth Token",
-            response._tokenResponse.refreshToken
-          );
+          sessionStorage.setItem("Auth ID", user.uid);
         })
         .catch((error) => {
           if (error.code === "auth/email-already-in-use") {
@@ -51,11 +39,9 @@ function Form({
     if (title === "Login") {
       signInWithEmailAndPassword(authentication, email, password)
         .then((response) => {
+          const user = response.user;
           navigate("/main");
-          sessionStorage.setItem(
-            "Auth Token",
-            response._tokenResponse.refreshToken
-          );
+          sessionStorage.setItem("Auth ID", user.uid);
         })
         .catch((error) => {
           if (error.code === "auth/wrong-password") {

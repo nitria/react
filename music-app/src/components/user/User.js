@@ -5,6 +5,7 @@ import "../../assets/styles/app.css";
 import { FaUserCircle } from "react-icons/fa";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
+import { signOut, getAuth } from "firebase/auth";
 
 function User({
   users,
@@ -14,7 +15,6 @@ function User({
   dropdown,
   setDropdown,
   hasToken,
-  setHasToken,
   dropdownRef,
 }) {
   //Function to open user dropdown menu//
@@ -24,10 +24,11 @@ function User({
 
   //Function to logout user//
   const handleLogout = () => {
-    sessionStorage.removeItem("Auth Token");
-    navigate("/login");
-    setDropdown(!dropdown);
-    setHasToken(false);
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      sessionStorage.removeItem("Auth ID");
+      navigate("/login");
+    });
   };
 
   useEffect(() => {
@@ -46,10 +47,10 @@ function User({
     <StyledUser>
       <div>
         <StyledAvatar onClick={() => expandDropdown()}>
-          {hasToken && users !== undefined && users.image.length > 1 ? (
+          {hasToken && users !== undefined && users.photoURL.length > 1 ? (
             <img
-              src={users.image}
-              alt={users.name}
+              src={users.photoURL}
+              alt={users.displayName}
               style={{ width: "100%", height: "100%", borderRadius: "50%" }}
             />
           ) : (
@@ -57,9 +58,11 @@ function User({
           )}
         </StyledAvatar>
         <StyledUserName>
-          {hasToken && users !== undefined && users.name.length > 1
-            ? users.name
-            : hasToken && email}
+          {hasToken && users !== undefined && users.displayName.length > 1
+            ? users.displayName
+            : hasToken && email
+            ? email
+            : ""}
         </StyledUserName>
         <div
           className={`dropdown ${dropdown ? "active" : ""}`}

@@ -1,69 +1,124 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import "../../assets/styles/app.css";
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, deleteDoc } from "firebase/firestore";
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import { db } from "../../firebase";
 import { BsXCircle } from "react-icons/bs";
+import { getAuth, updateProfile, deleteUser } from "firebase/auth";
 
-function UserProfile({ db }) {
+function UserProfile({ navigate }) {
   const [newUserName, setNewUserName] = useState("");
   const [newUserAvatar, setNewUserAvatar] = useState("");
   const userAvatarRef = useRef();
+  const auth = getAuth();
+  const userDoc = doc(db, "users", "user");
 
   //Function to send updated data to firebase//
   function updateUser(e) {
     e.preventDefault();
-    const userDoc = doc(db, "users", "user");
+    console.log(auth.currentUser);
     const storage = getStorage();
-    const imageRef = ref(storage, "images/" + newUserAvatar.name);
+    const imageRef = ref(storage, "images/" + newUserAvatar.displayName);
 
-    uploadBytesResumable(imageRef, newUserAvatar)
-      .then((snapshot) => {
-        // Let's get a download URL for the file.
-        getDownloadURL(snapshot.ref).then((url) => {
-          updateDoc(userDoc, { name: newUserName, image: url });
+    if (newUserAvatar === "") {
+      updateDoc(userDoc, { displayName: newUserName });
+    } else {
+      uploadBytesResumable(imageRef, newUserAvatar)
+        .then((snapshot) => {
+          // Let's get a download URL for the file.
+          getDownloadURL(snapshot.ref).then((url) => {
+            updateDoc(userDoc, { displayName: newUserName, photoURL: url });
+          });
+        })
+        .catch((error) => {
+          console.error("Upload failed", error);
         });
-      })
-      .catch((error) => {
-        console.error("Upload failed", error);
-      });
+    }
+    // updateProfile(auth.currentUser, {
+    //   displayName: newUserName,
+    // })
+    //   .then(() => {
+    //     uploadBytesResumable(imageRef, newUserAvatar)
+    //       .then((snapshot) => {
+    //         // Let's get a download URL for the file.
+    //         getDownloadURL(snapshot.ref).then((url) => {
+    //           updateDoc(userDoc, {displayName: newUserName, photoURL: url });
+    //         });
+    //       })
+    //       .catch((error) => {
+    //         console.error("Upload failed", error);
+    //       });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
     //Reset inputs//
     setNewUserName("");
     userAvatarRef.current.value = "";
     setNewUserAvatar(null);
   }
 
+  //Close Profile and return to main//
+  const closeProfile = () => {
+    navigate("/main");
+  };
+
+  //Delete Account//
+  const deleteAccount = () => {
+    deleteUser(auth.currentUser)
+      .then(() => {
+        navigate("/register");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    deleteDoc(userDoc);
+  };
+
   return (
     <StyledFormContainer>
       <StyledForm>
-        <CloseIcon />
-        <label htmlFor="userAvatar">Change profile image</label>
-        <StyledInputs
-          id="userAvatar"
-          type="file"
-          accept=".png, .jpg, .jpeg"
-          onChange={(e) => setNewUserAvatar(e.target.files[0])}
-          ref={userAvatarRef}
-        />
+        <CloseIcon onClick={closeProfile} />
+        <StyledInputContainer>
+          <label htmlFor="userAvatar">Change profile image </label>
+          <StyledInputs
+            id="userAvatar"
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            onChange={(e) => setNewUserAvatar(e.target.files[0])}
+            ref={userAvatarRef}
+          />
+          <p>*Accepted images .png, .jpg, .jpeg</p>
+        </StyledInputContainer>
 
-        <label htmlFor="userName">Change profile name</label>
-        <StyledInputs
-          id="userName"
-          type="text"
-          placeholder="Enter your Name"
-          required
-          onChange={(e) => setNewUserName(e.target.value)}
-          value={newUserName}
-        />
+        <StyledInputContainer>
+          <label htmlFor="userName">Change profile name</label>
+          <StyledInputs
+            id="userName"
+            type="text"
+            placeholder="Enter your Name"
+            required
+            onChange={(e) => setNewUserName(e.target.value)}
+            value={newUserName}
+          />
+        </StyledInputContainer>
         <Button type="submit" onClick={updateUser}>
           Update
         </Button>
       </StyledForm>
+      <StyledDeleteContainer>
+        <h2>Delete account</h2>
+        <Button type="submit" danger onClick={deleteAccount}>
+          Delete Account
+        </Button>
+      </StyledDeleteContainer>
     </StyledFormContainer>
   );
 }
@@ -85,12 +140,15 @@ const StyledForm = styled.form`
   align-items: flex-start;
   max-width: 250px;
   width: 100%;
-  height: 100%;
+  height: auto;
   margin: 0 auto;
 `;
-const StyledInputs = styled.input`
+
+const StyledInputContainer = styled.div`
   margin-top: 0.8rem;
   margin-bottom: 2rem;
+`;
+const StyledInputs = styled.input`
   padding: 0.3rem 0.5rem;
   width: 100%;
 `;
@@ -98,9 +156,14 @@ const StyledInputs = styled.input`
 const Button = styled.button`
   font-size: 1rem;
   color: var(--white);
-  background-color: var(--primaryColor);
+  background-color: ${(props) =>
+    props.danger ? "#ff0000" : "var(--primaryColor)"};
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
   cursor: pointer;
+`;
+
+const StyledDeleteContainer = styled.div`
+  margin: 4rem 0;
 `;
