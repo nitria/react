@@ -1,26 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import "../assets/styles/app.css";
 import SongDetails from "./SongDetails";
 import Library from "./Library";
-import { getAuth } from "firebase/auth";
 
-const StyledMain = styled.div`
-  display: flex;
-  width: 100%;
-`;
-function Main({ navigate }) {
-  const auth = getAuth();
-  const authUser = auth.currentUser;
-  let authId = sessionStorage.getItem("Auth ID", authUser.uid);
-  useEffect(() => {
-    if (authId) {
-      navigate("/main");
-    }
-    if (!authId) {
-      navigate("/login");
-    }
-  }, [authId]);
+function Main() {
   return (
     <StyledMain>
       <SongDetails />
@@ -30,3 +14,10 @@ function Main({ navigate }) {
 }
 
 export default Main;
+
+const StyledMain = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;

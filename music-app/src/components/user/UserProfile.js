@@ -5,13 +5,14 @@ import { updateDoc, doc, deleteDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { db } from "../../firebase";
 import { BsXCircle } from "react-icons/bs";
-import { getAuth, updateProfile, deleteUser } from "firebase/auth";
+import { getAuth, updateProfile, deleteUser, signOut } from "firebase/auth";
 
 function UserProfile({ navigate }) {
   const [newUserName, setNewUserName] = useState("");
   const [newUserAvatar, setNewUserAvatar] = useState("");
   const userAvatarRef = useRef();
   const auth = getAuth();
+  const authUser = auth.currentUser;
   const userDoc = doc(db, "users", "user");
 
   //Function to send updated data to firebase//
@@ -19,14 +20,16 @@ function UserProfile({ navigate }) {
     e.preventDefault();
     const storage = getStorage();
     const imageRef = ref(storage, "images/" + newUserAvatar.name);
-
+    //If no image is uploaded just update name
     if (newUserAvatar === "") {
       updateDoc(userDoc, { displayName: newUserName });
     } else {
-      // Let's get a download URL for the file.
+      //Upload image
       uploadBytes(imageRef, newUserAvatar).then((snapshot) => {
+        // Let's get a download URL for the file.
         getDownloadURL(snapshot.ref)
           .then((url) => {
+            //Update user profile.
             updateProfile(auth.currentUser, {
               displayName: newUserName,
               photoURL: url,
@@ -57,16 +60,18 @@ function UserProfile({ navigate }) {
 
   //Delete Account//
   const deleteAccount = () => {
-    sessionStorage.removeItem("Auth ID", auth.currentUser.uid);
-    deleteUser(auth.currentUser)
-      .then(() => {
-        console.log("user deleted");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    deleteDoc(userDoc);
-    navigate("/register");
+    sessionStorage.removeItem("Auth ID", authUser.uid);
+    signOut(auth).then(() => {
+      deleteDoc(userDoc);
+      navigate("/register");
+      deleteUser(authUser)
+        .then(() => {
+          console.log("user deleted");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
   };
 
   return (
@@ -128,7 +133,7 @@ const StyledForm = styled.form`
   max-width: 250px;
   width: 100%;
   height: auto;
-  margin: 0 auto;
+  margin: 4rem auto 0;
 `;
 
 const StyledInputContainer = styled.div`
@@ -152,5 +157,7 @@ const Button = styled.button`
 `;
 
 const StyledDeleteContainer = styled.div`
-  margin: 4rem 0;
+  margin: 4rem auto;
+  max-width: 250px;
+  width: 100%;
 `;

@@ -16,9 +16,10 @@ function Form({ title, email, setEmail, password, setPassword }) {
   let navigate = useNavigate();
 
   //Function to Register/Login //
-  const handleAction = (e) => {
+  const registerOrLogin = (e) => {
     e.preventDefault();
     const authentication = getAuth();
+    //Register user
     if (title === "Register") {
       createUserWithEmailAndPassword(authentication, email, password)
         .then((response) => {
@@ -36,6 +37,7 @@ function Form({ title, email, setEmail, password, setPassword }) {
           }
         });
     }
+    //Login user
     if (title === "Login") {
       signInWithEmailAndPassword(authentication, email, password)
         .then((response) => {
@@ -71,7 +73,7 @@ function Form({ title, email, setEmail, password, setPassword }) {
           required
           onChange={(e) => setPassword(e.target.value)}
         />
-        <StyledButton onClick={(e) => handleAction(e)}>{title}</StyledButton>
+        <StyledButton onClick={(e) => registerOrLogin(e)}>{title}</StyledButton>
         <StyledLink to={title === "Register" ? "/login" : "/register"}>
           {title === "Register" ? "Login" : "Register"}
         </StyledLink>

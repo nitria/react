@@ -52,7 +52,12 @@ function User({
             <img
               src={users.photoURL}
               alt={users.displayName}
-              style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
             />
           ) : (
             <UserIcon />
@@ -61,9 +66,7 @@ function User({
         <StyledUserName>
           {authUser && users !== undefined && users.displayName.length > 1
             ? users.displayName
-            : authUser && email
-            ? email
-            : ""}
+            : authUser && email}
         </StyledUserName>
         <div
           className={`dropdown ${dropdown ? "active" : ""}`}

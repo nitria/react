@@ -20,12 +20,14 @@ function App() {
   let navigate = useNavigate();
   const dropdownRef = useRef();
 
+  //Close user submenu if clicked outside of submenu
   const clickOutside = (e) => {
     if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
       setDropdown(false);
     }
   };
 
+  //EventListener for clickOutside function
   useEffect(() => {
     document.addEventListener("mousedown", clickOutside);
     return () => {
@@ -33,6 +35,7 @@ function App() {
     };
   });
 
+  //If user is authenticate go to main else to register
   useEffect(() => {
     const auth = getAuth();
     const authID = sessionStorage.getItem("Auth ID", auth.uid);
@@ -125,6 +128,7 @@ const StyledHeader = styled.header`
 const StyledMainContainer = styled.main`
   width: 100%;
   height: 90%;
+  position: relative;
 `;
 
 const StyledFooter = styled(StyledHeader)``;

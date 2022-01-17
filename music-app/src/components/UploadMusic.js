@@ -1,24 +1,29 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 import "../assets/styles/app.css";
-// import app from "../firebase";
 import { BsPlusSquare } from "react-icons/bs";
-
-const Button = styled.button`
-  font-size: 1rem;
-  color: var(--white);
-  background-color: var(--primaryColor);
-  border: none;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
-`;
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 
 function UploadMusic() {
+  const storage = getStorage();
+  // const songsRef = ref(storage, "songs/" + song.name);
+
   return (
     <div>
-      <BsPlusSquare />
+      <UploadButton title="Upload Songs" />
     </div>
   );
 }
 
 export default UploadMusic;
+
+const UploadButton = styled(BsPlusSquare)`
+  font-size: 1rem;
+  color: var(--darkwhite);
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+`;
