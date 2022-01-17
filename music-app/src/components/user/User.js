@@ -14,9 +14,11 @@ function User({
   email,
   dropdown,
   setDropdown,
-  hasToken,
   dropdownRef,
 }) {
+  const auth = getAuth();
+  const authUser = auth.currentUser;
+
   //Function to open user dropdown menu//
   const expandDropdown = () => {
     setDropdown(!dropdown);
@@ -24,9 +26,8 @@ function User({
 
   //Function to logout user//
   const handleLogout = () => {
-    const auth = getAuth();
+    sessionStorage.removeItem("Auth ID", authUser.uid);
     signOut(auth).then(() => {
-      sessionStorage.removeItem("Auth ID");
       navigate("/login");
     });
   };
@@ -47,7 +48,7 @@ function User({
     <StyledUser>
       <div>
         <StyledAvatar onClick={() => expandDropdown()}>
-          {hasToken && users !== undefined && users.photoURL.length > 1 ? (
+          {authUser && users !== undefined && users.photoURL.length > 1 ? (
             <img
               src={users.photoURL}
               alt={users.displayName}
@@ -58,9 +59,9 @@ function User({
           )}
         </StyledAvatar>
         <StyledUserName>
-          {hasToken && users !== undefined && users.displayName.length > 1
+          {authUser && users !== undefined && users.displayName.length > 1
             ? users.displayName
-            : hasToken && email
+            : authUser && email
             ? email
             : ""}
         </StyledUserName>
@@ -71,7 +72,7 @@ function User({
           <Link to="profile">Profile</Link>
           <Link to="settings">Settings</Link>
           <button onClick={handleLogout}>
-            {hasToken ? "logout" : "login"}
+            {authUser ? "logout" : "login"}
           </button>
         </div>
       </div>

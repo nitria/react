@@ -9,21 +9,15 @@ import UserProfile from "./components/user/UserProfile";
 import UserSettings from "./components/user/UserSettings";
 import Form from "./components/user/Form";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { db } from "./firebase";
-import { collection } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 function App() {
   const [users, setUsers] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
-  const [userName, setUserName] = useState("");
   const [dropdown, setDropdown] = useState(false);
-  const [hasToken, setHasToken] = useState();
 
   let navigate = useNavigate();
-  let authId = sessionStorage.getItem("Auth ID");
-  const userInfo = collection(db, "users");
   const dropdownRef = useRef();
 
   const clickOutside = (e) => {
@@ -38,26 +32,26 @@ function App() {
       document.removeEventListener("mousedown", clickOutside);
     };
   });
+
   useEffect(() => {
-    if (authId) {
+    const auth = getAuth();
+    const authID = sessionStorage.getItem("Auth ID", auth.uid);
+
+    if (authID) {
       navigate("/main");
-      setHasToken(true);
     }
-    if (!authId) {
+    if (!authID) {
       navigate("/register");
-      setHasToken(false);
     }
     return () => {
-      if (authId) {
+      if (authID) {
         navigate("/main");
-        setHasToken(true);
       }
-      if (!authId) {
+      if (!authID) {
         navigate("/register");
-        setHasToken(false);
       }
     };
-  }, [authId]);
+  }, []);
 
   return (
     <StyledContainer className="App">
@@ -70,7 +64,6 @@ function App() {
           email={email}
           dropdown={dropdown}
           setDropdown={setDropdown}
-          hasToken={hasToken}
           dropdownRef={dropdownRef}
         />
       </StyledHeader>

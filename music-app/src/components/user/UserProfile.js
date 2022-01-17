@@ -2,12 +2,7 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import "../../assets/styles/app.css";
 import { updateDoc, doc, deleteDoc } from "firebase/firestore";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { db } from "../../firebase";
 import { BsXCircle } from "react-icons/bs";
 import { getAuth, updateProfile, deleteUser } from "firebase/auth";
@@ -22,42 +17,32 @@ function UserProfile({ navigate }) {
   //Function to send updated data to firebase//
   function updateUser(e) {
     e.preventDefault();
-    console.log(auth.currentUser);
     const storage = getStorage();
-    const imageRef = ref(storage, "images/" + newUserAvatar.displayName);
+    const imageRef = ref(storage, "images/" + newUserAvatar.name);
 
     if (newUserAvatar === "") {
       updateDoc(userDoc, { displayName: newUserName });
     } else {
-      uploadBytesResumable(imageRef, newUserAvatar)
-        .then((snapshot) => {
-          // Let's get a download URL for the file.
-          getDownloadURL(snapshot.ref).then((url) => {
-            updateDoc(userDoc, { displayName: newUserName, photoURL: url });
+      // Let's get a download URL for the file.
+      uploadBytes(imageRef, newUserAvatar).then((snapshot) => {
+        getDownloadURL(snapshot.ref)
+          .then((url) => {
+            updateProfile(auth.currentUser, {
+              displayName: newUserName,
+              photoURL: url,
+            })
+              .then(() => {
+                updateDoc(userDoc, { displayName: newUserName, photoURL: url });
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          })
+          .catch((error) => {
+            console.log(error);
           });
-        })
-        .catch((error) => {
-          console.error("Upload failed", error);
-        });
+      });
     }
-    // updateProfile(auth.currentUser, {
-    //   displayName: newUserName,
-    // })
-    //   .then(() => {
-    //     uploadBytesResumable(imageRef, newUserAvatar)
-    //       .then((snapshot) => {
-    //         // Let's get a download URL for the file.
-    //         getDownloadURL(snapshot.ref).then((url) => {
-    //           updateDoc(userDoc, {displayName: newUserName, photoURL: url });
-    //         });
-    //       })
-    //       .catch((error) => {
-    //         console.error("Upload failed", error);
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
 
     //Reset inputs//
     setNewUserName("");
@@ -72,14 +57,16 @@ function UserProfile({ navigate }) {
 
   //Delete Account//
   const deleteAccount = () => {
+    sessionStorage.removeItem("Auth ID", auth.currentUser.uid);
     deleteUser(auth.currentUser)
       .then(() => {
-        navigate("/register");
+        console.log("user deleted");
       })
       .catch((error) => {
         console.log(error);
       });
     deleteDoc(userDoc);
+    navigate("/register");
   };
 
   return (
